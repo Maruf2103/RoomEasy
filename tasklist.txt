@@ -1,0 +1,7 @@
+Group Leader: <Name>
+Frontend (HTML/CSS): Member A
+Database Design + SQL: Member A
+Create & Insert PHP: Member A
+View & Delete PHP: Member A
+Update PHP + JS Validation: Member A
+Documentation & Presentation: All
