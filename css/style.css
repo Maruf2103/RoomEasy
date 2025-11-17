@@ -1,28 +1,319 @@
-*{box-sizing:border-box}
-body{font-family:Arial,Helvetica,sans-serif;margin:0;color:#222;background:#f7f7f7}
-.container{max-width:1000px;margin:0 auto;padding:16px}
-.site-header{background:#0b72b9;color:#fff;padding:12px 0}
-.site-header .container{display:flex;align-items:center;gap:12px}
-.brand{margin:0;font-size:1.4rem}
-.nav{margin-left:auto;display:flex;gap:12px}
-.nav a{color:#fff;text-decoration:none;padding:8px;border-radius:4px}
-.nav a:hover{background:rgba(255,255,255,0.12)}
-.menu-toggle{display:none;background:transparent;border:none;color:#fff;font-size:1.2rem}
-h2{margin-top:0}
-.card{background:#fff;padding:16px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.06);margin-bottom:16px}
-.form-row{display:flex;gap:12px;flex-wrap:wrap}
-.form-field{flex:1;min-width:180px;display:flex;flex-direction:column;margin-bottom:8px}
-label{font-size:0.9rem;margin-bottom:6px}
-input[type="text"], input[type="email"], input[type="tel"], input[type="date"], select{padding:8px;border:1px solid #ddd;border-radius:4px}
-button{background:#0b72b9;border:none;color:#fff;padding:10px 14px;border-radius:6px;cursor:pointer}
-button.secondary{background:#666}
-.table{width:100%;border-collapse:collapse}
-.table th,.table td{padding:8px;border:1px solid #eee;text-align:left}
-.actions{display:flex;gap:8px}
-.msg{padding:10px;border-radius:6px;margin-bottom:12px}
-.success{background:#e6ffed;color:#1b7a3a;border:1px solid #bfe6c9}
-.error{background:#ffe6e6;color:#a02b2b;border:1px solid #f1bcbc}
-@media(max-width:720px){
-  .nav{display:none;position:absolute;right:12px;top:56px;background:#0b72b9;padding:8px;border-radius:6px}
-  .menu-toggle{display:block}
+* {
+  box-sizing: border-box;
+}
+
+/* Body & Layout */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  color: #222;
+  background: #f0f0f0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 16px;
+  flex: 1;
+}
+
+/* Landing page background */
+body.landing-page {
+  background: url('/roomeasy/images/landing_page_background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body.landing-page::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: -1;
+}
+
+/* Header */
+.site-header {
+  background: linear-gradient(90deg, #0b72b9, #0477c1); /* RESTORED: Original blue gradient */
+  color: #fff; /* RESTORED: White text for contrast */
+  padding: 12px 0; 
+  transition: background 0.3s ease;
+}
+
+.site-header:hover {
+  background: linear-gradient(90deg, #095a91, #03659a); /* Darker blue gradient on hover */
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* logo left, nav right */
+  gap: 20px;
+}
+
+/* Logo and Brand */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.9rem; 
+  font-weight: bold;
+  color: #fff; /* RESTORED: White text for contrast */
+  text-decoration: none;
+}
+
+.brand .logo {
+  height: 90px; 
+  width: auto;
+  border-radius: 8px;
+  transition: transform 0.3s;
+}
+
+.brand .logo:hover {
+  transform: scale(1.1);
+}
+
+.brand .brand-text {
+  font-weight: bold;
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  gap: 16px;
+  margin-left: auto;
+}
+
+.nav a {
+  color: #fff; /* RESTORED: White links for contrast */
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  transition: background 0.3s, color 0.3s, transform 0.2s;
+}
+
+.nav a:hover {
+  background: rgba(255, 255, 255, 0.12); /* Subtle white hover background */
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #fff; /* RESTORED: White icon for contrast */
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Cards */
+.card {
+  background: rgba(255, 255, 255, 0.7);
+  color: #333;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 16px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Text visibility inside the card */
+.card h2,
+.card p {
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+/* Attractive styling for text inside card */
+.card em {
+    font-style: italic;
+    font-weight: 600; 
+    color: #444; 
+    display: block; 
+    margin-bottom: 5px; 
+    font-size: 0.95em;
+}
+
+.app-name {
+    color: #1a1a1a; 
+    font-weight: bold;
+}
+
+.card strong {
+    color: #1a1a1a; 
+    font-weight: bold;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Button Container Style */
+.button-container {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* Forms */
+.form-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.form-field {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+label {
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+input[type="number"],
+select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  transition: border 0.3s;
+}
+
+input:focus,
+select:focus {
+  border-color: #0b72b9;
+  outline: none;
+}
+
+/* Buttons */
+button {
+  background: #0b72b9;
+  border: none;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+button:hover {
+  background: #03659a;
+  transform: scale(1.05);
+}
+
+button.secondary {
+  background: #666;
+}
+
+button.secondary:hover {
+  background: #444;
+  transform: scale(1.05);
+}
+
+/* Table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 10px;
+  border: 1px solid #eee;
+  text-align: left;
+  transition: background 0.3s;
+}
+
+.table tr:hover {
+  background: #f0f8ff;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Messages */
+.msg {
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 14px;
+}
+
+.success {
+  background: #e6ffed;
+  color: #1b7a3a;
+  border: 1px solid #bfe6c9;
+}
+
+.error {
+  background: #ffe6e6;
+  color: #a02b2b;
+  border: 1px solid #f1bcbc;
+}
+
+/* Footer */
+footer {
+  background: #0b72b9; /* RESTORED: Original blue solid color */
+  color: #fff; /* RESTORED: White text for contrast */
+  text-align: center;
+  padding: 8px 0; 
+  margin-top: auto;
+  font-size: 0.9rem;
+  transition: background 0.3s;
+}
+
+footer:hover {
+  background: #095a91; /* Darker blue on hover */
+}
+
+/* Responsive */
+@media(max-width:720px) {
+  .site-header .container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav {
+    display: none;
+    position: absolute;
+    right: 12px;
+    top: 90px;
+    background: #0b72b9; /* Remains blue for consistency */
+    padding: 12px;
+    border-radius: 8px;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* Override for mobile menu links inside the now-dark mobile nav */
+  @media(max-width:720px) {
+    .nav a {
+        color: #fff; 
+    }
+  }
+
+  .menu-toggle {
+    display: block;
+    margin-left: auto;
+    color: #fff; /* White icon for contrast */
+  }
 }

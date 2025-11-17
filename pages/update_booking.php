@@ -3,6 +3,7 @@ include "../includes/db.php";
 $msg = "";
 $id = $_GET['id'] ?? null;
 if(!$id) header("Location: view_bookings.php");
+
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $g = trim($_POST['guest_name']);
     $e = trim($_POST['email']);
@@ -11,19 +12,24 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $ci = $_POST['check_in_date'];
     $co = $_POST['check_out_date'];
     $st = trim($_POST['status']);
-    $stmt = $conn->prepare("UPDATE bookings SET guest_name=?,email=?,phone=?,room_type=?,check_in_date=?,check_out_date=?,status=? WHERE booking_id=?");
-    $stmt->bind_param("sssssssi",$g,$e,$p,$rt,$ci,$co,$st,$id);
+    $pay = trim($_POST['payment']); // Payment field
+
+    $stmt = $conn->prepare("UPDATE bookings SET guest_name=?,email=?,phone=?,room_type=?,check_in_date=?,check_out_date=?,status=?,payment=? WHERE booking_id=?");
+    $stmt->bind_param("sssssssdi",$g,$e,$p,$rt,$ci,$co,$st,$pay,$id); // 'd' for decimal
     if($stmt->execute()) $msg = "success:Booking updated successfully";
     else $msg = "error:Update failed";
     $stmt->close();
 }
+
 $stmt = $conn->prepare("SELECT * FROM bookings WHERE booking_id = ?");
 $stmt->bind_param("i",$id);
 $stmt->execute();
 $res = $stmt->get_result();
 $booking = $res->fetch_assoc();
+
 include "../includes/header.php";
 ?>
+
 <div class="card">
   <h2>Update Booking #<?php echo $id; ?></h2>
   <?php if($msg): list($type,$text)=explode(":",$msg,2); ?>
@@ -51,8 +57,12 @@ include "../includes/header.php";
           <option <?php if($booking['status']=='Checked-out') echo 'selected'; ?>>Checked-out</option>
         </select>
       </div>
+      <div class="form-field"><label>Payment (RM)</label>
+        <input id="payment" name="payment" type="number" step="0.01" min="0" value="<?php echo number_format($booking['payment'],2); ?>" required>
+      </div>
     </div>
     <div style="margin-top:10px"><button type="submit">Update Booking</button></div>
   </form>
 </div>
+
 <?php include "../includes/footer.php"; ?>

@@ -9,8 +9,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $ci = $_POST['check_in_date'];
     $co = $_POST['check_out_date'];
     $st = trim($_POST['status']);
-    $stmt = $conn->prepare("INSERT INTO bookings (guest_name,email,phone,room_type,check_in_date,check_out_date,status) VALUES (?,?,?,?,?,?,?)");
-    $stmt->bind_param("sssssss",$g,$e,$p,$rt,$ci,$co,$st);
+    $pay = trim($_POST['payment']); // NEW
+
+    $stmt = $conn->prepare("INSERT INTO bookings (guest_name,email,phone,room_type,check_in_date,check_out_date,status,payment) VALUES (?,?,?,?,?,?,?,?)");
+    $stmt->bind_param("sssssssd",$g,$e,$p,$rt,$ci,$co,$st,$pay); // 'd' for decimal
     if($stmt->execute()) $msg = "success:Booking added successfully";
     else $msg = "error:Unable to add booking";
     $stmt->close();
@@ -43,6 +45,9 @@ include "../includes/header.php";
           <option>Checked-in</option>
           <option>Checked-out</option>
         </select>
+      </div>
+      <div class="form-field"><label>Payment (RM)</label>
+        <input id="payment" name="payment" type="number" step="0.01" min="0" required>
       </div>
     </div>
     <div style="margin-top:10px"><button type="submit">Save Booking</button></div>
