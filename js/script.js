@@ -1,4 +1,4 @@
-// Menu toggle with smooth slide
+
 document.addEventListener("DOMContentLoaded", function() {
   const btn = document.getElementById("menuToggle");
   const nav = document.querySelector(".nav");
@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
   if (btn) {
     btn.addEventListener("click", function() {
       if (nav.style.display === "flex") {
-        nav.style.height = nav.scrollHeight + "px"; // start animation
+        nav.style.height = nav.scrollHeight + "px"; 
         requestAnimationFrame(() => {
           nav.style.height = "0px";
         });
@@ -30,12 +30,12 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
 
-// Confirm deletion
+
 function confirmDelete() { 
   return confirm("Are you sure you want to delete this booking?"); 
 }
 
-// Inline message display instead of alert
+
 function showMessage(msg, type = 'info') {
   const div = document.createElement('div');
   div.textContent = msg;
@@ -45,7 +45,7 @@ function showMessage(msg, type = 'info') {
   setTimeout(() => div.remove(), 4000);
 }
 
-// Booking form validation with inline hints
+
 function validateBookingForm(event){
   const name = document.getElementById("guest_name").value.trim();
   const email = document.getElementById("email").value.trim();
@@ -56,7 +56,7 @@ function validateBookingForm(event){
 
   let valid = true;
 
-  // Clear previous warnings
+ 
   document.querySelectorAll('.form-warning').forEach(w => w.remove());
 
   function showWarning(input, message) {
@@ -77,7 +77,6 @@ function validateBookingForm(event){
   return valid;
 }
 
-// Optional: prevent form submission with Enter key in inputs
 document.querySelectorAll('form input').forEach(input => {
   input.addEventListener('keydown', e => {
     if(e.key === 'Enter') e.preventDefault();

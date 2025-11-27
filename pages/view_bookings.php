@@ -9,21 +9,19 @@ $conds = [];
 $params = [];
 $types = "";
 
-// Room type filter
 if($filter_room){
   $conds[] = "room_type = ?";
   $params[] = $filter_room;
   $types .= "s";
 }
 
-// Status filter
+
 if($filter_status){
   $conds[] = "status = ?";
   $params[] = $filter_status;
   $types .= "s";
 }
 
-// Add conditions to SQL
 if($conds) $sql .= " WHERE " . implode(" AND ", $conds);
 
 $stmt = $conn->prepare($sql);
@@ -39,7 +37,6 @@ include "../includes/header.php";
 <div class="card">
   <h2>All Bookings</h2>
 
-  <!-- Filters -->
   <form method="get" style="margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap">
     <select name="room_type">
       <option value="">--Room Type--</option>
@@ -60,7 +57,6 @@ include "../includes/header.php";
     <a href="/roomeasy/pages/view_bookings.php"><button type="button" class="secondary">Reset</button></a>
   </form>
 
-  <!-- Bookings Table -->
   <table class="table">
     <thead>
       <tr>

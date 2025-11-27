@@ -12,10 +12,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $ci = $_POST['check_in_date'];
     $co = $_POST['check_out_date'];
     $st = trim($_POST['status']);
-    $pay = trim($_POST['payment']); // Payment field
+    $pay = trim($_POST['payment']); 
 
     $stmt = $conn->prepare("UPDATE bookings SET guest_name=?,email=?,phone=?,room_type=?,check_in_date=?,check_out_date=?,status=?,payment=? WHERE booking_id=?");
-    $stmt->bind_param("sssssssdi",$g,$e,$p,$rt,$ci,$co,$st,$pay,$id); // 'd' for decimal
+    $stmt->bind_param("sssssssdi",$g,$e,$p,$rt,$ci,$co,$st,$pay,$id); 
     if($stmt->execute()) $msg = "success:Booking updated successfully";
     else $msg = "error:Update failed";
     $stmt->close();

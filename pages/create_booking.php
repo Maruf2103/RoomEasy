@@ -9,10 +9,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $ci = $_POST['check_in_date'];
     $co = $_POST['check_out_date'];
     $st = trim($_POST['status']);
-    $pay = trim($_POST['payment']); // NEW
+    $pay = trim($_POST['payment']); 
 
     $stmt = $conn->prepare("INSERT INTO bookings (guest_name,email,phone,room_type,check_in_date,check_out_date,status,payment) VALUES (?,?,?,?,?,?,?,?)");
-    $stmt->bind_param("sssssssd",$g,$e,$p,$rt,$ci,$co,$st,$pay); // 'd' for decimal
+    $stmt->bind_param("sssssssd",$g,$e,$p,$rt,$ci,$co,$st,$pay); 
     if($stmt->execute()) $msg = "success:Booking added successfully";
     else $msg = "error:Unable to add booking";
     $stmt->close();
